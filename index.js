@@ -1,86 +1,40 @@
-const simpleGit = require('simple-git')();
-const jsonfile = require('jsonfile');
-const moment = require('moment');
-const fs = require('fs');
-const path = require('path');
+import jsonfile from "jsonfile";
+import moment from "moment";
+import simpleGit from "simple-git";
+import random from "random";
 
-// Configure paths
-const DATA_FILE = path.join(__dirname, 'data.json');
-const LOG_FILE = path.join(__dirname, 'commit_log.txt');
+const path = "./data.json";
 
-// Initialize log file
-fs.writeFileSync(LOG_FILE, 'Commit Log:\n', { flag: 'w' });
+const markCommit = (x, y) => {
+  const date = moment()
+    .subtract(1, "y")
+    .add(1, "d")
+    .add(x, "w")
+    .add(y, "d")
+    .format();
 
-// Function to log messages to file and console
-function log(message) {
-  const timestamp = new Date().toISOString();
-  const logEntry = `[${timestamp}] ${message}\n`;
-  console.log(logEntry.trim());
-  fs.appendFileSync(LOG_FILE, logEntry);
-}
+  const data = {
+    date: date,
+  };
 
-// Function to create a single commit
-async function makeCommit(date) {
-  const data = { date: date.format() };
-  
-  try {
-    // Write to data file
-    await jsonfile.writeFile(DATA_FILE, data);
-    
-    // Configure git
-    await simpleGit.add(DATA_FILE);
-    await simpleGit.commit('Update data', [DATA_FILE], {
-      '--date': date.format()
-    });
-    
-    log(`Committed: ${date.format()}`);
-    return true;
-  } catch (error) {
-    log(`Error: ${error.message}`);
-    return false;
-  }
-}
+  jsonfile.writeFile(path, data, () => {
+    simpleGit().add([path]).commit(date, { "--date": date }).push();
+  });
+};
 
-// Function to generate random date between two dates
-function randomDate(start, end) {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
+const makeCommits = (n) => {
+  if(n===0) return simpleGit().push();
+  const x = random.int(0, 54);
+  const y = random.int(0, 6);
+  const date = moment().subtract(1, "y").add(1, "d").add(x, "w").add(y, "d").format();
 
-// Main function to create multiple commits
-async function makeCommits(count) {
-  const startDate = new Date('2016-01-01');
-  const endDate = new Date('2024-08-31');
-  
-  log(`Starting to create ${count} commits between ${startDate.toISOString()} and ${endDate.toISOString()}`);
-  
-  for (let i = 0; i < count; i++) {
-    const randomDateValue = randomDate(startDate, endDate);
-    const date = moment(randomDateValue);
-    
-    log(`[${i+1}/${count}] Processing commit for ${date.format('YYYY-MM-DD')}`);
-    
-    const success = await makeCommit(date);
-    if (!success) {
-      log(`Failed to create commit ${i+1}, continuing with next...`);
-    }
-    
-    // Add a small delay between commits
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-  
-  log('All commits completed!');
-  log('Pushing to remote repository...');
-  
-  try {
-    await simpleGit.push('origin', 'main');
-    log('Successfully pushed all commits to remote repository!');
-  } catch (error) {
-    log(`Error pushing to remote: ${error.message}`);
-  }
-}
+  const data = {
+    date: date,
+  };
+  console.log(date);
+  jsonfile.writeFile(path, data, () => {
+    simpleGit().add([path]).commit(date, { "--date": date },makeCommits.bind(this,--n));
+  });
+};
 
-// Start creating commits (100 commits for testing)
-makeCommits(100).catch(error => {
-  log(`Fatal error: ${error.message}`);
-  process.exit(1);
-});
+makeCommits(10);
