@@ -64,8 +64,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🌐 Connect with Me
 
 - GitHub: [aakash688](https://github.com/aakash688)
-- LinkedIn: [Your LinkedIn Profile]
-- Twitter: [@YourTwitterHandle]
+- LinkedIn: [aakashkumarsingh](https://www.linkedin.com/in/aakashkumarsingh/)
+
 
 ---
 
