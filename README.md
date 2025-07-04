@@ -1,49 +1,72 @@
-# 🌱 goGreen 
+# 🌱 Git Automation Script
 
-With **goGreen**, you can make your profile look like you've been hard at work... even if you haven't. 
-NodeJs script to make commits to the past (or the future) to go green on GitHub.
+A powerful Node.js utility for automating Git commits and managing your GitHub contribution graph. Customize your GitHub profile with meaningful commit patterns and maintain a consistent contribution history.
 
-## About
+## ✨ Features
 
-**goGreen** helps you create commits on your GitHub profile for any date in the past. Whether you want to fill up your contribution graph or even make cool patterns and artwork.
+- Schedule commits for past or future dates
+- Create custom patterns in your contribution graph
+- Control commit density for different shades of green
+- Lightweight and easy to use
 
-## Getting Started
+## 🚀 Getting Started
 
-Follow these steps to bring your contribution graph to life:
+### Prerequisites
+- Node.js (v14 or higher)
+- Git
+- GitHub account
 
-1. **Clone this repository**
+### Installation
+
+1. **Clone the repository**
 ```bash
-git clone https://github.com/fenrir2608/goGreen.git
-cd goGreen
+git clone https://github.com/aakash688/gitautomategraph.git
+cd gitautomategraph
 ```
-3. **Set up your project**
-Initialize a new Node.js project:
+
+2. **Install dependencies**
 ```bash
-npm init -y
-  ```
-3. **Install the required npm modules**
-You'll need a few modules to get everything running smoothly. Install them all with:
-  ```bash
-  npm install moment simple-git random
-  ```
-4. **Create your commit script**
-- Create a JavaScript file to manage your commits.
-- Create a JSON file to store all the commit timestamp data.
+npm install
+```
 
-## Room for Improvement
+3. **Configure your repository**
+Update the configuration in `index.js` with your repository details and desired commit pattern.
 
-So, you've got the basics down. What's next?
+4. **Run the script**
+```bash
+node index.js
+```
 
-- **Custom Patterns:** Experiment with different patterns on your contribution graph. Maybe spell out your name or create some cool designs.
-- **Density Control:** Play around with the number of commits per day to adjust the shades of green.
-- **Input Strings:** Convert input strings to X-Y mapped contributions.
+## 🛠️ Customization
 
-## npm Modules Used
+### Creating Patterns
+Modify the `data.json` file to create custom patterns in your contribution graph. The script supports various patterns and densities.
 
-- [`moment`](https://www.npmjs.com/package/moment) - Handles date and time manipulation.
-- [`simple-git`](https://www.npmjs.com/package/simple-git) - For easy Git commands.
-- [`random`](https://www.npmjs.com/package/random) - To generate random numbers for the commits.
+### Configuration Options
+- `startDate`: The date from which to start making commits
+- `endDate`: The end date for commits
+- `commitsPerDay`: Number of commits per day (affects shade intensity)
+- `pattern`: Define custom patterns for your contribution graph
 
-## Credits
+## 🤝 Contributing
 
-Huge thanks to [Akshay Saini](https://github.com/akshaymarch7) for the original video behind this project.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Credits
+
+- Inspired by various Git automation tools
+- Built with ❤️ by Aakash Singh
+
+## 🌐 Connect with Me
+
+- GitHub: [aakash688](https://github.com/aakash688)
+- LinkedIn: [Your LinkedIn Profile]
+- Twitter: [@YourTwitterHandle]
+
+---
+
+*Note: This tool is intended for educational purposes only. Please use it responsibly and in accordance with GitHub's Terms of Service.*
